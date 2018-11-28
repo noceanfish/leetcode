@@ -1,3 +1,5 @@
+import re
+
 class Solution:
     def isMatch(self, s, p):
         """
@@ -8,11 +10,20 @@ class Solution:
         if not p:
             return not s
 
-        first_match = bool(s) and p[0] in {s[0], '.'}
-        if len(p) >= 2 and p[1] == '*':
-            return self.isMatch(s, p[2:]) or first_match and self.isMatch(s[1:], p)
+        pattern = re.compile(p)
+        res = pattern.match(s)
+        if not res:
+            return False
         else:
-            return first_match and self.isMatch(s[1:], p[1:])
+            return True
+        # recursive method
+        # first_match = bool(s) and p[0] in {s[0], '.'}
+        # if len(p) >= 2 and p[1] == '*':
+        #     return self.isMatch(s, p[2:]) or first_match and self.isMatch(s[1:], p)
+        # else:
+        #     return first_match and self.isMatch(s[1:], p[1:])
+
+
         # if not s or not p: return False
 
         # s_index = 0
